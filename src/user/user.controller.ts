@@ -5,7 +5,7 @@ import { UpdateUserDto } from './dto/update.dto';
 import { UuidValidationPipe } from 'src/pipe/custom.validation';
 
 
-@Controller('user1')
+@Controller('user')
 export class UserController {
     constructor(private readonly userService: UserService) { }
 
@@ -14,23 +14,18 @@ export class UserController {
         return this.userService.create(createUserDto);
     }
 
-    findAll() {
-        return this.userService.findAll();
-    }
-
     @Get(':id')
-    // @UsePipes(new UuidValidationPipe()) // custom 
-    findOne(@Param('id') id: number) {
+    findOne(@Param('id', new UuidValidationPipe()) id: number) {
         return this.userService.findOne(id);
     }
 
     @Patch(':id')
-    update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    update(@Param('id', new UuidValidationPipe()) id: string, @Body() updateUserDto: UpdateUserDto) {
         return this.userService.update(id, updateUserDto);
     }
 
     @Delete(':id')
-    remove(@Param('id') id: string) {
+    remove(@Param('id', new UuidValidationPipe()) id: string) {
         return this.userService.remove(id);
     }
 }

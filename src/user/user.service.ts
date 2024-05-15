@@ -11,7 +11,7 @@ export class UserService {
     constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) { }
 
     async create(createUserDto: CreateUserDto): Promise<User> {
-        const user: User = new User();
+        const user = new User();
         user.firstName = createUserDto.firstName;
         user.lastName = createUserDto.lastName;
         user.age = createUserDto.age;
@@ -37,7 +37,6 @@ export class UserService {
         if (!user) {
             throw new NotFoundException(`User with ID ${id} not found`);
         }
-
         user.firstName = updateUserDto.firstName;
         user.lastName = updateUserDto.lastName;
         user.age = updateUserDto.age;
